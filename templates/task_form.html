@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>{{ form.title.label }}: {{ form.title() }}</p>
+        <p>{{ form.description.label }}: {{ form.description() }}</p>
+        <p>{{ form.status.label }}: {{ form.status() }}</p>
+        <p>{{ form.priority.label }}: {{ form.priority() }}</p>
+        <p>{{ form.project.label }}: {{ form.project() }}</p>
+        <p>{{ form.assignee.label }}: {{ form.assignee() }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    <a href="{{ url_for('index') }}">Voltar</a>
+</body>
+</html>

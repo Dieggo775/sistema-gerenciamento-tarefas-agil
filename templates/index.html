@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Gerenciamento de Tarefas Ágil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Sistema de Gerenciamento de Tarefas Ágil</h1>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('kanban') }}">Kanban</a>
+        <a href="{{ url_for('new_task') }}">Nova Tarefa</a>
+        <a href="{{ url_for('new_project') }}">Novo Projeto</a>
+        <a href="{{ url_for('new_user') }}">Novo Usuário</a>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h2>Projetos</h2>
+    <ul>
+        {% for project in projects %}
+        <li>{{ project.name }} - {{ project.description }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Tarefas</h2>
+    <ul>
+        {% for task in tasks %}
+        <li>{{ task.title }} - Status: {{ task.status }} - Prioridade: {{ task.priority }}
+            <a href="{{ url_for('edit_task', task_id=task.id) }}">Editar</a>
+            <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}" style="display:inline;">
+                <input type="submit" value="Deletar" onclick="return confirm('Tem certeza?')">
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
